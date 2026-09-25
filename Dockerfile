@@ -3,24 +3,23 @@ FROM alpine:3.18
 LABEL maintainer="Luca Gatty"
 LABEL description="Alpine Linux with Python 3 and pip"
 ENV PYTHONUNBUFFERED=1
-ENV UID=1010
-ENV USERNAME=appuser
-ENV GID=1010
-ENV GROUPNAME=appuser
+ARG UID=1010
+ARG USERNAME=appuser
+ENV GID="${UID}"
+ENV GROUPNAME="${USERNAME}"
 
 WORKDIR /app
 
 # Install dependencies
-RUN apk update && \
-    apk add --no-cache \
+RUN apk add --no-cache \
     bash \
     curl \
     git \
     python3 \
     py3-pip \
-    && pip install --no-cache-dir pyyaml \ 
-    && addgroup -g "${GID}" "${GROUPNAME}}" \
-    && adduser -D -u "${UID}" -G "${GROUPNAME}}" "${USERNAME}"
+    py3-yaml \
+    && addgroup -g "${GID}" "${GROUPNAME}" \
+    && adduser -D -u "${UID}" -G "${GROUPNAME}" "${USERNAME}"
 
 SHELL ["/bin/bash", "-c"]
 
