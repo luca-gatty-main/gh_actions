@@ -1,0 +1,38 @@
+name: "Podcast Feed Generator"
+
+on:
+  workflow_dispatch:
+    inputs:
+      feed_file:
+        description: "Path to the feed.yaml file"
+        required: true
+        default: "feed.yaml"
+      email:
+        description: "Email address for the feed author"
+        required: true
+        default: "bot@users.noreply.github.com"
+      name:
+        description: "Name of the feed author"
+        required: true
+        default: "bot"
+
+
+permissions:
+  contents: write
+
+jobs:
+  generate-feed:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build feed generator
+        run: docker build -t podcast-feed-generator -f Dockerfile .
+      - name: Generate podcast feed
+        run: >-
+          docker run --rm
+          -v "${GITHUB_WORKSPACE}:/github/workspace"
+          -w /github/workspace
+          podcast-feed-generator
+          "${{ inputs.feed_file }}"
+          "${{ inputs.email }}"
+          "${{ inputs.name }}"
