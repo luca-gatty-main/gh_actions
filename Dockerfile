@@ -18,12 +18,11 @@ RUN apk update && \
     git \
     python3 \
     py3-pip \
-    && pip install --no-cache-dir pyyaml
+    && pip install --no-cache-dir pyyaml \ 
+    && addgroup -g "${GID}" "${GROUPNAME}}" \
+    && adduser -D -u "${UID}" -G "${GROUPNAME}}" "${USERNAME}"
 
 SHELL ["/bin/bash", "-c"]
-
-RUN addgroup -g "${GID}" "${GROUPNAME}}" && \
-    adduser -D -u "${UID}" -G "${GROUPNAME}}" "${USERNAME}"
 
 COPY --chown="${UID}:${GID}" . /app
 
