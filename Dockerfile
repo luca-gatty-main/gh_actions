@@ -13,6 +13,7 @@ WORKDIR /app
 
 # Install dependencies
 RUN apk add --no-cache \
+    shadow \
     bash \
     curl \
     git \
