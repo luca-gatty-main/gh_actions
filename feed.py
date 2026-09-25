@@ -33,7 +33,7 @@ for item in feed["item"]:
 
     enclosure = ET.SubElement(item_element, "enclosure", {
         "url": link_prefix + item["file"],
-        "type": "audio/mpeg",
+        "type": item["type"],
         "length": str(item["length"]),
     })
 
