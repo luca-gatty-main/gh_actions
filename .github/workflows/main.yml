@@ -13,4 +13,5 @@ jobs:
       - name: Generate feed.yaml
         uses: luca-gatty-main/gh_actions@main
         with:
-          GITHUB_ACTOR: "${{ github.actor }}"
+          env: 
+            GITHUB_ACTOR="${{ github.triggering_actor }}"
