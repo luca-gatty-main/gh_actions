@@ -13,6 +13,4 @@ jobs:
       - name: Generate feed.yaml
         uses: luca-gatty-main/gh_actions@main
         with:
-          feed_file: feed.yaml
-          email: "${{ github.actor }}@users.noreply.github.com"
-          name: "${{ github.actor }}"
+          GITHUB_ACTOR: "${{ github.actor }}"

@@ -10,11 +10,11 @@ on:
       email:
         description: "Email address for the feed author"
         required: true
-        default: "bot@users.noreply.github.com"
+        default: "${GITHUB_ACTOR}@users.noreply.github.com"
       name:
         description: "Name of the feed author"
         required: true
-        default: "bot"
+        default: "${GITHUB_ACTOR}"
 
 
 permissions:
