@@ -3,7 +3,7 @@
 <<EOF | echo
 Starting entrypoint script...
 
-$(git config --global user.name "${GITHUB_ACTOR}")
+$(git config --global user.name "${INPUT_GITHUB_ACTOR}")
 $(git config --global user.email "${INPUT_EMAIL}")
 
 $(python /app/feed.py)
