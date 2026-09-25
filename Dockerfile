@@ -3,6 +3,7 @@ FROM alpine:3.18
 LABEL maintainer="Luca Gatty"
 LABEL description="Alpine Linux with Python 3 and pip"
 ENV PYTHONUNBUFFERED=1
+ARG GITHUB_ACTOR
 ARG UID=1010
 ARG USERNAME=appuser
 ENV GID="${UID}"

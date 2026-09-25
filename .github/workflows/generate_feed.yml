@@ -10,11 +10,11 @@ on:
       email:
         description: "Email address for the feed author"
         required: true
-        default: "${GITHUB_ACTOR}@users.noreply.github.com"
+        default: "GITHUB_ACTOR@users.noreply.github.com"
       name:
         description: "Name of the feed author"
         required: true
-        default: "${GITHUB_ACTOR}"
+        default: "GITHUB_ACTOR"
 
 
 permissions:
@@ -22,17 +22,15 @@ permissions:
 
 jobs:
   generate-feed:
-    runs-on: ubuntu-latest
+    runs-on: luca-gatty-main/gh_actions@main
     steps:
       - uses: actions/checkout@v4
       - name: Build feed generator
         run: docker build -t podcast-feed-generator -f Dockerfile .
       - name: Generate podcast feed
-        run: >-
-          docker run --rm
-          -v "${GITHUB_WORKSPACE}:/github/workspace"
-          -w /github/workspace
-          podcast-feed-generator
-          "${{ inputs.feed_file }}"
-          "${{ inputs.email }}"
-          "${{ inputs.name }}"
+        run: |
+          docker run --rm -v ${{ github.workspace }}:/app podcast-feed-generator \
+          --feed-file "${{ github.event.inputs.feed_file }}" \
+          --email "${{ github.actor }}@users.noreply.github.com" \
+          --name "${{ github.actor }}"
+          
